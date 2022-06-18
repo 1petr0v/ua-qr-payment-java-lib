@@ -16,7 +16,6 @@ repositories {
 }
 
 dependencies {
-    // Use JUnit Jupiter for testing.
     testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
 
     // This dependency is exported to consumers, that is to say found on their compile classpath.
