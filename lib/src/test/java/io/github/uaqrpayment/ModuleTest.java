@@ -13,7 +13,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-
 public class ModuleTest {
     private PaymentToQREncoder encoder = new PaymentToQREncoderImpl();
 
