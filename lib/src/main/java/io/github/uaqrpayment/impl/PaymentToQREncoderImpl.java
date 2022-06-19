@@ -1,6 +1,7 @@
 package io.github.uaqrpayment.impl;
 
 import com.google.zxing.BarcodeFormat;
+import com.google.zxing.EncodeHintType;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
@@ -22,6 +23,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class PaymentToQREncoderImpl implements PaymentToQREncoder {
@@ -52,7 +54,8 @@ public class PaymentToQREncoderImpl implements PaymentToQREncoder {
                 payableByteStream.write(valuesAsBytes);
                 payableByteStream.write(UAQRPayable.FIELD_DELIMITER.getBytes(ann.encoding().charset()));
             }
-            BitMatrix qrCodeBitMatrix = new MultiFormatWriter().encode(payableByteStream.toString(), BarcodeFormat.QR_CODE, 300, 300);
+            Map<EncodeHintType, ?> encoderHints = Map.of(EncodeHintType.CHARACTER_SET, "UTF-8");
+            BitMatrix qrCodeBitMatrix = new MultiFormatWriter().encode(payableByteStream.toString(), BarcodeFormat.QR_CODE, 300, 300, encoderHints);
             return MatrixToImageWriter.toBufferedImage(qrCodeBitMatrix);
         } catch (IOException | IllegalAccessException | WriterException | InvocationTargetException e) {
             throw new RuntimeException(e);
