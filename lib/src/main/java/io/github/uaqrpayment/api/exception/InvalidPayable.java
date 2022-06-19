@@ -6,7 +6,4 @@ public class InvalidPayable extends Exception {
         super(message);
     }
 
-    public InvalidPayable(final String message, final Throwable e) {
-        super(message, e);
-    }
 }

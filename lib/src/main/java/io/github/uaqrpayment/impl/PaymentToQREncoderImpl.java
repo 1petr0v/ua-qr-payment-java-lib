@@ -21,7 +21,6 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -47,40 +46,28 @@ public class PaymentToQREncoderImpl implements PaymentToQREncoder {
 
                 // Step 3 Attempt to align fixed length fields
                 Pair<String, byte[]> normalizedValues = checkFixedLengthContentAndBackFillIfNeeded(valueAsString, valuesAsBytes, ann);
-                valueAsString = normalizedValues.getLeft();
+                // valueAsString = normalizedValues.getLeft(); // uncomment if needed
                 valuesAsBytes = normalizedValues.getRight();
 
                 payableByteStream.write(valuesAsBytes);
                 payableByteStream.write(UAQRPayable.FIELD_DELIMITER.getBytes(ann.encoding().charset()));
             }
-            BitMatrix qrCodeBitMatrix = new MultiFormatWriter().encode(new String(payableByteStream.toByteArray()), BarcodeFormat.QR_CODE, 300, 300);
-            BufferedImage img = MatrixToImageWriter.toBufferedImage(qrCodeBitMatrix);
-            return img;
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (InvocationTargetException e) {
-            throw new RuntimeException(e);
-        } catch (IllegalAccessException e) {
-            throw new RuntimeException(e);
-        } catch (WriterException e) {
+            BitMatrix qrCodeBitMatrix = new MultiFormatWriter().encode(payableByteStream.toString(), BarcodeFormat.QR_CODE, 300, 300);
+            return MatrixToImageWriter.toBufferedImage(qrCodeBitMatrix);
+        } catch (IOException | IllegalAccessException | WriterException | InvocationTargetException e) {
             throw new RuntimeException(e);
         }
     }
 
     private List<Method> orderedProperties() {
         // Filter all methods that marked with @NBUQRFieldAttribute(...)
-        List<Method> declaredMethods = Arrays.stream(UAQRPayable.class.getDeclaredMethods())
-            .filter(m -> m.isAnnotationPresent(NBUQRFieldAttribute.class))
-            .collect(Collectors.toList());
-
         // Making sure that order is preserved.
-        Collections.sort(declaredMethods, (a1, a2) -> {
-            NBUQRFieldAttribute annotation1 = a1.getAnnotation(NBUQRFieldAttribute.class);
-            NBUQRFieldAttribute annotation2 = a2.getAnnotation(NBUQRFieldAttribute.class);
-            return Integer.compare(annotation1.fieldNumber(), annotation2.fieldNumber());
-        });
-
-        return declaredMethods;
+        return Arrays.stream(UAQRPayable.class.getDeclaredMethods())
+            .filter(m -> m.isAnnotationPresent(NBUQRFieldAttribute.class)).sorted((a1, a2) -> {
+                NBUQRFieldAttribute annotation1 = a1.getAnnotation(NBUQRFieldAttribute.class);
+                NBUQRFieldAttribute annotation2 = a2.getAnnotation(NBUQRFieldAttribute.class);
+                return Integer.compare(annotation1.fieldNumber(), annotation2.fieldNumber());
+            }).collect(Collectors.toList());
     }
 
     // TODO: add more extensibility in case more values are added.
