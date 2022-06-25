@@ -21,7 +21,12 @@ dependencies {
     implementation("org.apache.commons:commons-lang3:3.12.0")
 
     testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
+    testImplementation("org.mockito:mockito-junit-jupiter:4.6.1")
+    testImplementation("org.mockito:mockito-core:4.6.1")
+    testImplementation("org.mockito:mockito-inline:4.6.1")
     testImplementation("org.assertj:assertj-core:3.23.1")
+    // Comparing QR codes in tests https://romankh3.github.io/image-comparison/
+    testImplementation("com.github.romankh3:image-comparison:4.4.0")
 }
 
 tasks.named<Test>("test") {

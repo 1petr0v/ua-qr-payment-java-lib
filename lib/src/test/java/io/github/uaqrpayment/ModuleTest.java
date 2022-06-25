@@ -15,11 +15,11 @@ import org.junit.jupiter.params.provider.CsvFileSource;
 import java.awt.image.BufferedImage;
 
 public class ModuleTest {
-    private PaymentToQREncoder encoder = new PaymentToQREncoderImpl();
-    private QRToPaymentDecoder decoder = new QRToPaymentDecoderImpl();
+    private final PaymentToQREncoder encoder = new PaymentToQREncoderImpl();
+    private final QRToPaymentDecoder decoder = new QRToPaymentDecoderImpl();
 
     @ParameterizedTest(name = "{index} => Testing payable with {0} : {1} : {2} : {3} : {4}")
-    @CsvFileSource(resources = {"/nbu_provided_simplified_cases.csv"}, encoding = "UTF-8", delimiter = ';')
+    @CsvFileSource(resources = {"/nbu_provided_simplified_cases.csv"}, delimiter = ';')
     void doEncodingAndDecoding_SimplifiedDataSource_HappyCase(
             final String beneficiary,
             final String beneficiaryAccount,

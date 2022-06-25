@@ -62,9 +62,9 @@ public class PaymentToQREncoderImpl implements PaymentToQREncoder {
         }
     }
 
+    // Filter all methods that marked with @NBUQRFieldAttribute(...)
+    // Making sure that order is preserved.
     private List<Method> orderedProperties() {
-        // Filter all methods that marked with @NBUQRFieldAttribute(...)
-        // Making sure that order is preserved.
         return Arrays.stream(UAQRPayable.class.getDeclaredMethods())
             .filter(m -> m.isAnnotationPresent(NBUQRFieldAttribute.class)).sorted((a1, a2) -> {
                 NBUQRFieldAttribute annotation1 = a1.getAnnotation(NBUQRFieldAttribute.class);

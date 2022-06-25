@@ -46,13 +46,7 @@ public class QRToPaymentDecoderImpl implements QRToPaymentDecoder {
             Constructor constructor = payableQrCodeClass.getConstructor(classes);
             UAQRPayable payable = (SimplePayable) constructor.newInstance(lines.toArray());
             return payable;
-        } catch (NoSuchMethodException e) {
-            throw new RuntimeException(e);
-        } catch (InvocationTargetException e) {
-            throw new RuntimeException(e);
-        } catch (InstantiationException e) {
-            throw new RuntimeException(e);
-        } catch (IllegalAccessException e) {
+        } catch (NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException e) {
             throw new RuntimeException(e);
         }
     }
