@@ -9,8 +9,8 @@ import com.google.zxing.common.HybridBinarizer;
 import io.github.uaqrpayment.api.QRToPaymentDecoder;
 import io.github.uaqrpayment.api.UAQRPayable;
 import io.github.uaqrpayment.api.annotations.NBUQRFieldAttribute;
-import io.github.uaqrpayment.api.exception.InvalidPayable;
-import io.github.uaqrpayment.models.PredefinedPayable;
+import io.github.uaqrpayment.api.exception.InvalidPayableException;
+import io.github.uaqrpayment.models.SimplePayable;
 
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 public class QRToPaymentDecoderImpl implements QRToPaymentDecoder {
 
     @Override
-    public UAQRPayable decode(final BufferedImage payableQrCode) throws NotFoundException, InvalidPayable {
+    public UAQRPayable decode(final BufferedImage payableQrCode) throws NotFoundException, InvalidPayableException {
         BinaryBitmap bbm = new BinaryBitmap(new HybridBinarizer(new BufferedImageLuminanceSource(payableQrCode)));
         Result result = new MultiFormatReader().decode(bbm);
         String content = result.getText();
@@ -36,15 +36,15 @@ public class QRToPaymentDecoderImpl implements QRToPaymentDecoder {
             .filter(m -> m.isAnnotationPresent(NBUQRFieldAttribute.class)).count();
 
         if (lines.size() != amountOfFields) {
-            throw new InvalidPayable("Field amount is inconsistent. Expected " + amountOfFields + " but actual was " + lines.size());
+            throw new InvalidPayableException("Field amount is inconsistent. Expected " + amountOfFields + " but actual was " + lines.size());
         }
 
         try {
             Class[] classes = new Class[amountOfFields];
             Arrays.fill(classes, String.class);
-            Class payableQrCodeClass = PredefinedPayable.class;
+            Class payableQrCodeClass = SimplePayable.class;
             Constructor constructor = payableQrCodeClass.getConstructor(classes);
-            UAQRPayable payable = (PredefinedPayable) constructor.newInstance(lines.toArray());
+            UAQRPayable payable = (SimplePayable) constructor.newInstance(lines.toArray());
             return payable;
         } catch (NoSuchMethodException e) {
             throw new RuntimeException(e);

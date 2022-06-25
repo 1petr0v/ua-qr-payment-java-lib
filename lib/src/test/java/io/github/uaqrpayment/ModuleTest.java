@@ -4,10 +4,10 @@ import com.google.zxing.NotFoundException;
 import io.github.uaqrpayment.api.PaymentToQREncoder;
 import io.github.uaqrpayment.api.QRToPaymentDecoder;
 import io.github.uaqrpayment.api.UAQRPayable;
-import io.github.uaqrpayment.api.exception.InvalidPayable;
+import io.github.uaqrpayment.api.exception.InvalidPayableException;
 import io.github.uaqrpayment.impl.PaymentToQREncoderImpl;
 import io.github.uaqrpayment.impl.QRToPaymentDecoderImpl;
-import io.github.uaqrpayment.models.PredefinedPayable;
+import io.github.uaqrpayment.models.SimplePayable;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
@@ -26,9 +26,9 @@ public class ModuleTest {
             final String monetaryValue,
             final String beneficiaryTaxNumber,
             final String paymentPurpose
-    ) throws InvalidPayable, NotFoundException {
+    ) throws InvalidPayableException, NotFoundException {
         // Create payable from CSV
-        UAQRPayable loadedFromFile = new PredefinedPayable(beneficiary, beneficiaryAccount, monetaryValue, beneficiaryTaxNumber, paymentPurpose);
+        UAQRPayable loadedFromFile = new SimplePayable(beneficiary, beneficiaryAccount, monetaryValue, beneficiaryTaxNumber, paymentPurpose);
         // Generate QR code and keep it in memory
         BufferedImage image = encoder.encode(loadedFromFile);
         // Take previously generated QR code from memory and create payable from it

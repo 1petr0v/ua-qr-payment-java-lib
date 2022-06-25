@@ -11,7 +11,7 @@ import io.github.uaqrpayment.api.annotations.LengthUnit;
 import io.github.uaqrpayment.api.annotations.NBUQRFieldAttribute;
 import io.github.uaqrpayment.api.PaymentToQREncoder;
 import io.github.uaqrpayment.api.UAQRPayable;
-import io.github.uaqrpayment.api.exception.InvalidPayable;
+import io.github.uaqrpayment.api.exception.InvalidPayableException;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
@@ -29,7 +29,7 @@ import java.util.stream.Collectors;
 public class PaymentToQREncoderImpl implements PaymentToQREncoder {
 
     @Override
-    public BufferedImage encode(final UAQRPayable payable) throws InvalidPayable {
+    public BufferedImage encode(final UAQRPayable payable) throws InvalidPayableException {
         try (ByteArrayOutputStream payableByteStream = new ByteArrayOutputStream()) {
             List<Method> declaredMethods = orderedProperties();
 
@@ -75,34 +75,34 @@ public class PaymentToQREncoderImpl implements PaymentToQREncoder {
 
     // TODO: add more extensibility in case more values are added.
     private void checkRequiredContentPresentOrThrow(final String valueAsString,
-                                                    final NBUQRFieldAttribute relatedAnnotation) throws InvalidPayable {
+                                                    final NBUQRFieldAttribute relatedAnnotation) throws InvalidPayableException {
         switch (relatedAnnotation.requirement()) {
             case MANDATORY:
                 if (StringUtils.isEmpty(valueAsString)) {
-                    throw new InvalidPayable("Field " + relatedAnnotation.fieldNumber() + " was marked as mandatory but was empty.");
+                    throw new InvalidPayableException("Field " + relatedAnnotation.fieldNumber() + " was marked as mandatory but was empty.");
                 }
                 break;
             case OPTIONAL:
                 break;
             case RESERVE:
                 if (StringUtils.isNotBlank(valueAsString)) {
-                    throw new InvalidPayable("Field " + relatedAnnotation.fieldNumber() + " was marked as reserved but was not empty.");
+                    throw new InvalidPayableException("Field " + relatedAnnotation.fieldNumber() + " was marked as reserved but was not empty.");
                 }
                 break;
             default:
-                throw new InvalidPayable("Field " + relatedAnnotation.fieldNumber() + " has requirement value that is not yet supported");
+                throw new InvalidPayableException("Field " + relatedAnnotation.fieldNumber() + " has requirement value that is not yet supported");
         }
     }
 
     private void checkContentLengthOverflowOrThrow(final String valueAsString,
                                                    final byte[] valueAsBytes,
-                                                   final NBUQRFieldAttribute relatedAnnotation) throws InvalidPayable {
+                                                   final NBUQRFieldAttribute relatedAnnotation) throws InvalidPayableException {
         if (LengthUnit.BYTES.equals(relatedAnnotation.lengthUnit()) && valueAsBytes.length > relatedAnnotation.length()) {
-            throw new InvalidPayable("Field " + relatedAnnotation.fieldNumber() + " had content length more than allowed.");
+            throw new InvalidPayableException("Field " + relatedAnnotation.fieldNumber() + " had content length more than allowed.");
         }
 
         if (LengthUnit.CHARS.equals(relatedAnnotation.lengthUnit()) && valueAsString.length() > relatedAnnotation.length()) {
-            throw new InvalidPayable("Field " + relatedAnnotation.fieldNumber() + " had content length more than allowed.");
+            throw new InvalidPayableException("Field " + relatedAnnotation.fieldNumber() + " had content length more than allowed.");
         }
     }
 
