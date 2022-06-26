@@ -50,6 +50,7 @@ jobs:
             git config --global user.email '1petr0v@users.noreply.github.com'
             git remote update
             git fetch
+            git branch
             git stash
             git checkout --track origin/technical-do-not-delete
             git stash apply
