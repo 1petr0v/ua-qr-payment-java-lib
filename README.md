@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/1petr0v/ua-qr-payment-java-lib.svg?branch=main)](https://travis-ci.com/1petr0v/ua-qr-payment-java-lib)
+
 # ua-qr-payment-java-lib
 QR Code Payment Lib
 
