@@ -4,7 +4,7 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
 /**
- * 
+ *
  */
 public enum Encoding {
     ISO_646(StandardCharsets.US_ASCII), UTF_8(StandardCharsets.UTF_8);
