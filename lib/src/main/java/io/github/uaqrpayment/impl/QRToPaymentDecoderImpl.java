@@ -42,9 +42,9 @@ public class QRToPaymentDecoderImpl implements QRToPaymentDecoder {
         try {
             Class[] classes = new Class[amountOfFields];
             Arrays.fill(classes, String.class);
-            Class payableQrCodeClass = SimplePayable.class;
-            Constructor constructor = payableQrCodeClass.getConstructor(classes);
-            UAQRPayable payable = (SimplePayable) constructor.newInstance(lines.toArray());
+            Class<SimplePayable> payableQrCodeClass = SimplePayable.class;
+            Constructor<SimplePayable> constructor = payableQrCodeClass.getConstructor(classes);
+            UAQRPayable payable = constructor.newInstance(lines.toArray());
             return payable;
         } catch (NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException e) {
             throw new RuntimeException(e);

@@ -8,7 +8,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class SimplePayableTest {
 
-    private static final String EXPECTED_TO_STRING_VALUE = "SimplePayable[applicationStartCode=                       ,serviceTag=BCD,formatVersion=001,encoding=1,function=UCT,BIC=,beneficiary=**********************************,beneficiaryAccount=*****************************,monetaryValue=************,beneficiaryTaxNumber=********,target=,reference=,paymentPurpose=*****************,displayValue=]";
+    private static final String EXPECTED_TO_STRING_VALUE = "SimplePayable[applicationStartCode=                       ,serviceTag=BCD,formatVersion=001,encoding=1,function=UCT,BIC=,beneficiary=**********************************,beneficiaryAccount=*****************************,monetaryValue=*********,beneficiaryTaxNumber=********,target=,reference=,paymentPurpose=*****************,displayValue=]";
 
     @Test
     void instance_ToString_ExpectedOutput() {
