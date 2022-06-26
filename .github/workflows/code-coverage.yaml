@@ -3,7 +3,7 @@ name: Measure coverage
 on:
   push:
     branches: [ "main" ]
-    paths: [ '**.java', '.github/workflows/build.yml' ]
+    paths: [ '**.java', '.github/workflows/code-coverage.yaml' ]
   pull_request:
     branches: [ "main" ]
   workflow_dispatch:
