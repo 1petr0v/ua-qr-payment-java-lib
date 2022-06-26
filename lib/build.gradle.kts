@@ -1,6 +1,7 @@
 plugins {
     `java-library`
     id("io.freefair.lombok") version "6.5.0.2"
+    jacoco
 }
 
 java {
@@ -31,4 +32,12 @@ dependencies {
 
 tasks.named<Test>("test") {
     useJUnitPlatform()
+}
+
+tasks.jacocoTestReport {
+    reports {
+        xml.required.set(true)
+        csv.required.set(false)
+        html.outputLocation.set(layout.buildDirectory.dir("jacocoHtml"))
+    }
 }
