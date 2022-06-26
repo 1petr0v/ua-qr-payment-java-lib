@@ -38,6 +38,8 @@ tasks.jacocoTestReport {
     reports {
         xml.required.set(false)
         csv.required.set(true)
-        html.outputLocation.set(layout.buildDirectory.dir("jacocoHtml"))
+        html.outputLocation.set(file("${buildDir}/reports/jacoco/Html"))
+        csv.outputLocation.set(file("${buildDir}/reports/jacoco/jacoco.csv"))
     }
 }
+
