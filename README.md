@@ -1,5 +1,5 @@
 [![Java CI with Gradle](https://github.com/1petr0v-OSS/ua-qr-payment-java-lib/actions/workflows/gradle.yml/badge.svg)](https://github.com/1petr0v-OSS/ua-qr-payment-java-lib/actions/workflows/gradle.yml) 
-[![Coverage](https://raw.githubusercontent.com/1petr0v-OSS/ua-qr-payment-java-lib/technical-do-not-delete/badges/jacoco.svg)](https://github.com/1petr0v-OSS/ua-qr-payment-java-lib/actions/workflows/code-coverage.yaml)
+[![Coverage](https://raw.githubusercontent.com/1petr0v-OSS/ua-qr-payment-java-lib/badges/jacoco.svg)](https://github.com/1petr0v-OSS/ua-qr-payment-java-lib/actions/workflows/code-coverage.yaml)
 # ua-qr-payment-java-lib
 QR Code Payment Lib
 
