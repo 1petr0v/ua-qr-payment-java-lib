@@ -15,7 +15,7 @@ public final class SimplePayableFixture {
 
     public static final String GENERIC_BENEFICIARY = "БО Благодійний фонд Сергія Притули";
     public static final String GENERIC_BENEFICIARY_ACC = "UA473052990000026005026707459";
-    public static final String GENERIC_MONETARY_VALUE = "UAH100000.00";
+    public static final String GENERIC_MONETARY_VALUE = "UAH100.00";
     public static final String GENERIC_BENEFICIARY_TAX_NUMBER = "43720363";
     public static final String GENERIC_PAYMENT_PURPOSE = "На Байрактарчики!";
 
