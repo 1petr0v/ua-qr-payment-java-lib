@@ -18,8 +18,8 @@ jobs:
       - name: Checkout badges branch to a badges directory nested inside first checkout
         uses: actions/checkout@v3
         with:
-          ref: badges
-          path: badges
+          ref: technical-do-not-delete
+          path: technical-do-not-delete
 
       - name: Set up JDK 11
         uses: actions/setup-java@v3
