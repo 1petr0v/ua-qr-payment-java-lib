@@ -1,5 +1,5 @@
-[![Java CI with Gradle](https://github.com/1petr0v-OSS/ua-qr-payment-java-lib/actions/workflows/gradle.yml/badge.svg)](https://github.com/1petr0v-OSS/ua-qr-payment-java-lib/actions/workflows/gradle.yml) 
-[![Coverage](https://raw.githubusercontent.com/1petr0v-OSS/ua-qr-payment-java-lib/badges/jacoco.svg)](https://github.com/1petr0v-OSS/ua-qr-payment-java-lib/actions/workflows/code-coverage.yaml)
+[![Java CI with Gradle](https://github.com/1petr0v/ua-qr-payment-java-lib/actions/workflows/gradle.yml/badge.svg)](https://github.com/1petr0v/ua-qr-payment-java-lib/actions/workflows/gradle.yml) 
+[![Coverage](https://raw.githubusercontent.com/1petr0v/ua-qr-payment-java-lib/badges/jacoco.svg)](https://github.com/1petr0v/ua-qr-payment-java-lib/actions/workflows/code-coverage.yaml)
 # Генератор та парсер українськіх платіжних QR-кодів / Ukrainian Payment QR-codes generator and parser
 QR Code Payment Lib
 
